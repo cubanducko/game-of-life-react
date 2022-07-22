@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Typography renders H1 correctly 1`] = `
+.c0 {
+  font-size: 64px;
+  line-height: 80px;
+  font-weight: 700;
+  margin: 0;
+}
+
+<h1
+  class="c0"
+>
+  Example title
+</h1>
+`;
+
+exports[`Typography renders H2 correctly 1`] = `
+.c0 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+  margin: 0;
+}
+
+<h2
+  class="c0"
+>
+  Example subtitle
+</h2>
+`;
