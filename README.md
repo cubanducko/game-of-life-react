@@ -4,9 +4,10 @@ A small playground for styled-components and optimization approaches
 
 # Roadmap
 
-- [] Dynamic branding / styling
-- [] Basic naive Game of Life implementation (Button to advance / reset)
-- [] Deprecate random grid in favor of painting your how own grid
+- [x] Dynamic branding / styling
+- [x] Basic naive Game of Life implementation (Button to advance / reset)
+- [x] Deprecate random grid in favor of painting your how own grid
+- [x] Play / Pause feature
 - [] Small optimizations for better rendering times
-- [] QoL improvements: Play / Pause feature, generation count, edge strategies
+- [] QoL improvements: Generation count, edge strategies
 - [] e2e testing
