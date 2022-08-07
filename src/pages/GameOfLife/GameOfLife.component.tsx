@@ -9,8 +9,16 @@ type GameOfLifeProps = WithCommonProps;
 const GRID_SIZE = 65;
 
 export function GameOfLife({ ...props }: GameOfLifeProps): JSX.Element {
-  const { grid, onNextGeneration, onCellClick, onClear, onRandomFill } =
-    useGameOfLife(GRID_SIZE);
+  const {
+    grid,
+    onNextGeneration,
+    onCellClick,
+    onClear,
+    onStart,
+    onPause,
+    isRunning,
+    onRandomFill,
+  } = useGameOfLife(GRID_SIZE, 350);
   return (
     <GameOfLifeStyled {...props}>
       <Aside>
@@ -21,6 +29,9 @@ export function GameOfLife({ ...props }: GameOfLifeProps): JSX.Element {
           onNextGeneration={onNextGeneration}
           onClear={onClear}
           onRandomFill={onRandomFill}
+          onPause={onPause}
+          onStart={onStart}
+          isRunning={isRunning}
           data-testid="game-of-life-controls"
         />
       </Aside>

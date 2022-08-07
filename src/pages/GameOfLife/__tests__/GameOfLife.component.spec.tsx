@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "services/test-utils";
+import { render, screen, userEvent, waitFor, act } from "services/test-utils";
 import { GameOfLife } from "../GameOfLife.component";
 import { GolCellState } from "../GameOfLife.logic";
 
@@ -25,7 +25,7 @@ describe("GameOfLife.spec", () => {
     );
   });
 
-  it("advances one generation when clicking on Next Generation button", () => {
+  it("advances one generation when clicking on Next button", () => {
     render(<GameOfLife />);
 
     // Paint a small figure
@@ -34,7 +34,7 @@ describe("GameOfLife.spec", () => {
     userEvent.click(screen.getByTestId("cell-1-0"));
 
     // Advance generation
-    userEvent.click(screen.getByText("Next generation"));
+    userEvent.click(screen.getByText("Next"));
 
     expect(screen.getByTestId("cell-1-1")).toHaveAttribute(
       "data-state",
@@ -80,5 +80,36 @@ describe("GameOfLife.spec", () => {
     ).length;
 
     expect(aliveCells).toBeGreaterThan(0);
+  });
+
+  it("starts running the game with a timeout if clicked in start", async () => {
+    // Mock timers
+    jest.useFakeTimers();
+
+    // Render
+    render(<GameOfLife />);
+
+    // Paint a small figure
+    userEvent.click(screen.getByTestId("cell-0-0"));
+    userEvent.click(screen.getByTestId("cell-0-1"));
+    userEvent.click(screen.getByTestId("cell-1-0"));
+
+    // Start game
+    userEvent.click(screen.getByText("Start"));
+    act(() => {
+      jest.advanceTimersByTime(350);
+    });
+    userEvent.click(screen.getByText("Pause"));
+
+    // Check result
+    await waitFor(() => {
+      expect(screen.getByTestId("cell-1-1")).toHaveAttribute(
+        "data-state",
+        `${GolCellState.ALIVE}`
+      );
+    });
+
+    // Unmock timers
+    jest.useRealTimers();
   });
 });

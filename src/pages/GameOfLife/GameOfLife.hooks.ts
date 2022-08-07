@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { useInterval, UseIntervalResult } from "utils";
 import {
   buildGolGrid,
   buildRandomGolGrid,
@@ -7,6 +8,10 @@ import {
   GolCellState,
   GolGrid,
 } from "./GameOfLife.logic";
+
+export type UseGameOfLifeResult = GameOfLifeHandlers &
+  GameOfLifeData &
+  UseIntervalResult;
 
 export type GameOfLifeHandlers = {
   onNextGeneration: () => void;
@@ -18,11 +23,10 @@ export type GameOfLifeHandlers = {
 export type GameOfLifeData = {
   grid: GolGrid;
   generation: number;
+  isRunning: boolean;
 };
 
-export function useGameOfLife(
-  gridSize: number
-): GameOfLifeData & GameOfLifeHandlers {
+export function useGameOfLife(gridSize: number, ms = 350): UseGameOfLifeResult {
   const [generation, setGeneration] = useState(0);
   const initialGrid = useMemo(() => buildGolGrid(gridSize), [gridSize]);
   const [grid, setGrid] = useState(initialGrid);
@@ -62,9 +66,14 @@ export function useGameOfLife(
     });
   }, []);
 
+  const { isRunning, onStart, onPause } = useInterval(onNextGeneration, ms);
+
   return {
     grid,
     generation,
+    isRunning,
+    onStart,
+    onPause,
     onNextGeneration,
     onClear,
     onRandomFill,
