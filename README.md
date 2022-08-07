@@ -8,6 +8,6 @@ A small playground for styled-components and optimization approaches
 - [x] Basic naive Game of Life implementation (Button to advance / reset)
 - [x] Deprecate random grid in favor of painting your how own grid
 - [x] Play / Pause feature
-- [] Small optimizations for better rendering times
-- [] QoL improvements: Generation count, edge strategies
-- [] e2e testing
+- [ ] Small optimizations for better rendering times
+- [ ] QoL improvements: Generation count, edge strategies
+- [ ] e2e testing
